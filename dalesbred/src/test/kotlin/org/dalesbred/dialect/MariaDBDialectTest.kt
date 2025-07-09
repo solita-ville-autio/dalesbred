@@ -37,13 +37,13 @@ class MariaDBDialectTest {
     }
 
     @Test
-    fun `ResultSetMetaDataTypeOverrides should be empty for MariaDB ConnectorJ 3_5_1 or earlier`() {
+    fun `MariaDB ConnectorJ 3_5_1 or earlier should not override java_sql_Blob returned by ResultSetMetaData`() {
         val dialect = MariaDBDialect().apply { setBlobsAsByteArrays(false) }
         assertNull(dialect.overrideResultSetMetaDataType("java.sql.Blob"))
     }
 
     @Test
-    fun `ResultSetMetaDataTypeOverrides should not be empty for MariaDB ConnectorJ 3_5_2 or later`() {
+    fun `MariaDB ConnectorJ 3_5_2 or later should override java_sql_Blob returned by ResultSetMetaData with byte array`() {
         val dialect = MariaDBDialect().apply { setBlobsAsByteArrays(true) }
         assertEquals(ByteArray::class.java, dialect.overrideResultSetMetaDataType("java.sql.Blob"))
     }
