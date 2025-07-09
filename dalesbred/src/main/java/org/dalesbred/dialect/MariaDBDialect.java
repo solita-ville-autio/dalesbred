@@ -45,7 +45,7 @@ public class MariaDBDialect extends Dialect {
         this.blobsAsByteArrays = blobsAsByteArrays;
     }
 
-    public void autodetectSettings(DatabaseMetaData metadata) {
+    public void autodetectSettings(@NotNull DatabaseMetaData metadata) {
         try {
             Version version = Version.parse(metadata.getDriverVersion());
             blobsAsByteArrays = version.compareTo(Version.parse("3.5.2")) >= 0;
